@@ -1,0 +1,6 @@
+/* Franky Franchise — Webfonts
+   Display: Zilla Slab (sturdy, friendly slab — "experienced operator")
+   Body/UI: Hanken Grotesk (clean, warm, great tabular numerals)
+   Data:    IBM Plex Mono (scores, deltas, labels)
+   Loaded from Google Fonts. To self-host, drop woff2 files here and swap to @font-face. */
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');

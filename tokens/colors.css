@@ -1,0 +1,90 @@
+/* ============================================================
+   FRANKY FRANCHISE — COLOR SYSTEM
+   Warm, bold, friendly. Built off the recolored mascot badge:
+   Franky Red, mascot Gold/Yellow, cream paper, navy ink.
+   ============================================================ */
+:root {
+  /* ---------- Brand core ---------- */
+  --ff-red:        #C0241F;  /* Franky Red — primary identity */
+  --ff-red-press:  #8E1714;  /* pressed / deep red */
+  --ff-red-hover:  #A91D19;  /* hover */
+  --ff-red-bright: #DA3A30;  /* energetic accent on dark */
+  --ff-red-tint:   #F7E2DF;  /* soft red wash for backgrounds */
+
+  --ff-gold:       #DBA42F;  /* badge ring gold — secondary accent */
+  --ff-gold-deep:  #B07F1E;
+  --ff-yellow:     #F4C84A;  /* mascot body — highlight / sunny accent */
+  --ff-yellow-tint:#FBEFC7;
+
+  --ff-cream:      #F3EFE3;  /* logo background — warm page paper */
+  --ff-cream-deep: #EAE3D1;
+
+  --ff-ink:        #20242F;  /* navy outline — primary text / dark surface */
+  --ff-ink-soft:   #3A3F4D;
+
+  /* ---------- Warm neutral ramp ---------- */
+  --neutral-0:   #FFFFFF;
+  --neutral-50:  #FAF6EC;
+  --neutral-100: #F1EBDB;
+  --neutral-200: #E2DAC6;
+  --neutral-300: #CBC1A9;
+  --neutral-400: #A79D86;
+  --neutral-500: #7C7461;
+  --neutral-600: #585241;  /* note: warm-brown, not gray */
+  --neutral-700: #3D3930;
+  --neutral-800: #282520;
+  --neutral-900: #16140F;
+
+  /* ---------- Franky Health Score ramp (distinct from brand red) ---------- */
+  --score-strong:   #1E9C57;  /* 800–1000  Thriving */
+  --score-steady:   #DBA42F;  /* 600–799   Steady   */
+  --score-watch:    #E5772B;  /* 400–599   Watch    */
+  --score-critical: #C0241F;  /* 0–399     Critical (brand red doubles here) */
+
+  --score-strong-bg:   #E4F3EA;
+  --score-steady-bg:   #FBEFCF;
+  --score-watch-bg:    #FBE6D4;
+  --score-critical-bg: #F7E2DF;
+
+  /* ---------- Semantic UI ---------- */
+  --success: #1E9C57;
+  --success-bg: #E4F3EA;
+  --warning: #DBA42F;
+  --warning-bg: #FBEFCF;
+  --danger:  #C0241F;
+  --danger-bg: #F7E2DF;
+  --info:    #2F6FB0;   /* muted blue, derived from navy ink */
+  --info-bg: #E2ECF6;
+
+  /* ============================================================
+     SEMANTIC ALIASES — reach for these in components
+     ============================================================ */
+  --brand:          var(--ff-red);
+  --brand-hover:    var(--ff-red-hover);
+  --brand-press:    var(--ff-red-press);
+  --brand-tint:     var(--ff-red-tint);
+  --on-brand:       #FFF6F2;
+  --accent-gold:    var(--ff-gold);
+  --accent-yellow:  var(--ff-yellow);
+
+  --surface-page:    var(--ff-cream);
+  --surface-card:    #FFFFFF;
+  --surface-raised:  #FFFFFF;
+  --surface-sunken:  var(--neutral-50);
+  --surface-inverse: var(--ff-ink);
+  --surface-brand:   var(--ff-red);
+
+  --text-strong:   var(--ff-ink);
+  --text-body:     #34384A;
+  --text-muted:    var(--neutral-500);
+  --text-faint:    var(--neutral-400);
+  --text-inverse:  #FBF6EC;
+  --text-on-brand: #FFF6F2;
+  --text-link:     var(--ff-red);
+
+  --border-subtle: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --border-ink:    var(--ff-ink);
+
+  --focus-ring:    color-mix(in srgb, var(--ff-red) 45%, transparent);
+}

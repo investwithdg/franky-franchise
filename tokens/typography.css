@@ -1,0 +1,54 @@
+/* ============================================================
+   FRANKY FRANCHISE — TYPOGRAPHY
+   ============================================================ */
+:root {
+  /* ---------- Families ---------- */
+  --font-display: "Zilla Slab", "Georgia", "Times New Roman", serif;
+  --font-body:    "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---------- Weights ---------- */
+  --fw-regular:  400; /* @kind font */
+  --fw-medium:   500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold:     700; /* @kind font */
+  --fw-black:    800; /* @kind font */
+
+  /* ---------- Type scale (1.250 major-third-ish, tuned) ---------- */
+  --text-2xs:  11px;
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-md:   18px;
+  --text-lg:   21px;
+  --text-xl:   26px;
+  --text-2xl:  32px;
+  --text-3xl:  40px;
+  --text-4xl:  52px;
+  --text-5xl:  66px;
+  --text-6xl:  84px;
+
+  /* ---------- Line heights ---------- */
+  --leading-tight:   1.08;
+  --leading-snug:    1.22;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* ---------- Letter spacing ---------- */
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.12em;  /* eyebrow / overline uppercase */
+
+  /* ---------- Numeric (dashboards) ---------- */
+  --num-tabular: "tnum" 1, "lnum" 1; /* @kind font */
+
+  /* ============================================================
+     SEMANTIC TEXT ALIASES
+     ============================================================ */
+  --display-font:   var(--font-display);
+  --heading-font:   var(--font-display);
+  --body-font:      var(--font-body);
+  --eyebrow-font:   var(--font-mono);
+}
