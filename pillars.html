@@ -49,9 +49,12 @@
   <!-- Mount Component -->
   <script type="text/babel" src="js/pillars.jsx"></script>
   <script type="text/babel">
-    const container = document.getElementById('root');
-    const root = ReactDOM.createRoot(container);
-    root.render(<window.PillarsPage />);
+    function mount() {
+      if (!window.PillarsPage) return setTimeout(mount, 40);
+      ReactDOM.createRoot(document.getElementById('root')).render(<PillarsPage />);
+      if (window.lucide) window.lucide.createIcons();
+    }
+    mount();
   </script>
 </body>
 </html>

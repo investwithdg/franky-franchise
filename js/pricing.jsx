@@ -25,7 +25,7 @@ function PricingNav() {
         </a>
         <div className="ff-nav-links">
           <a href="index.html#product">Product</a>
-          <a href="pillars.html">The four pillars</a>
+          <a href="pillars.html">The Four Pillars</a>
           <a href="pricing.html" style={{ color: 'var(--brand)' }}>Pricing</a>
           <a href="blog.html">Blog</a>
         </div>
@@ -50,7 +50,7 @@ function PricingNav() {
           borderBottom: '1px solid var(--border-subtle)',
         }}>
           <a href="index.html#product" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>Product</a>
-          <a href="pillars.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>The four pillars</a>
+          <a href="pillars.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>The Four Pillars</a>
           <a href="pricing.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Pricing</a>
           <a href="blog.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Blog</a>
           {user
@@ -68,11 +68,12 @@ const SERVICES = [
   {
     id: 'sniff-test',
     name: 'The Sniff Test',
-    price: 'Free',
-    period: '',
     description: 'On-demand operational diagnostic quiz and estimated annual leak calculations.',
     cta: 'Start free diagnostic',
     ctaVariant: 'secondary',
+    tiers: [
+      { label: 'All Operators', price: 'Free' }
+    ],
     provided: [
       '8-minute operational diagnostic',
       'Scores across 4 core pillars',
@@ -84,11 +85,14 @@ const SERVICES = [
   {
     id: 'fieldbook',
     name: 'The Fieldbook',
-    price: '$197–$497',
-    period: '/ pillar',
     description: 'Self-guided implementation kits. Bundle of all four pillars available for $997.',
     cta: 'Buy Fieldbook',
     ctaVariant: 'secondary',
+    tiers: [
+      { label: 'Single Unit', price: '$197 / pillar' },
+      { label: 'Multi-Unit (2–9)', price: '$497 / pillar' },
+      { label: 'Franchise Network', price: '$997 bundle' }
+    ],
     provided: [
       'Segment-specific DIY playbooks',
       'Hiring pipelines & onboarding checklists',
@@ -101,13 +105,17 @@ const SERVICES = [
   {
     id: 'fix-sprint',
     name: 'The Fix Sprint',
-    price: '$4,500–$28,000',
-    period: '',
     description: 'Interactive 4-week co-execution program to deploy core systems and fix leaks.',
     cta: 'Apply for Sprint',
     ctaVariant: 'primary',
     featured: true,
     badge: 'Core Offer',
+    tiers: [
+      { label: 'Single Unit', price: '$4,500' },
+      { label: '2–5 Units', price: '$12,500' },
+      { label: '6–10 Units', price: '$18,000' },
+      { label: 'Emerging Franchisor', price: '$28,000' }
+    ],
     provided: [
       'Week 1: Live 90-min diagnostic deep dive',
       'Week 2: Custom hiring pipelines & SOP templates',
@@ -120,11 +128,15 @@ const SERVICES = [
   {
     id: 'watchdog',
     name: 'The Watchdog Retainer',
-    price: '$800–$6,000',
-    period: '/ mo',
     description: 'Ongoing protection to maintain scores, protect margins, and prevent leak creep.',
     cta: 'Join Retainer Waitlist',
     ctaVariant: 'secondary',
+    tiers: [
+      { label: 'Single Unit', price: '$800 / mo' },
+      { label: '2–5 Units', price: '$1,500 / mo' },
+      { label: '6–10 Units', price: '$3,200 / mo' },
+      { label: 'Emerging Franchisor', price: '$6,000 / mo' }
+    ],
     provided: [
       '1 Sniff Check diagnostic run per quarter',
       '1 monthly live review session (30-45 min)',
@@ -136,11 +148,14 @@ const SERVICES = [
   {
     id: 'formation',
     name: 'Franky Formation',
-    price: '$25,000–$65,000',
-    period: '',
     description: 'Complete operating infrastructure build for scaling or restructuring franchisors.',
     cta: 'Inquire for Formation',
     ctaVariant: 'secondary',
+    tiers: [
+      { label: '1–3 Units (Pre-franchise)', price: '$25,000' },
+      { label: '4–10 Units (Franchise OS)', price: '$45,000' },
+      { label: '10+ Units (Enterprise OS)', price: '$65,000' }
+    ],
     provided: [
       'Hiring & onboarding franchisee playbook',
       'Vendor preferred supplier contracts framework',
@@ -163,11 +178,18 @@ function PricingPanel({ service, onWaitlist }) {
           </div>
         )}
         <h3 className="ff-pricing-panel-title">{service.name}</h3>
-        <div className="ff-pricing-panel-price">
-          <span className="ff-pricing-amount">{service.price}</span>
-          {service.period && <span className="ff-pricing-period">{service.period}</span>}
-        </div>
         <p className="ff-pricing-panel-desc">{service.description}</p>
+        
+        {/* Tiers list by location count */}
+        <div className="ff-pricing-panel-tiers">
+          {service.tiers.map((t, idx) => (
+            <div key={idx} className="ff-pricing-tier-row">
+              <span className="ff-pricing-tier-label">{t.label}</span>
+              <span className="ff-pricing-tier-price">{t.price}</span>
+            </div>
+          ))}
+        </div>
+
         <Button
           variant={service.ctaVariant}
           size="lg"
@@ -302,11 +324,32 @@ function FAQ() {
 
 /* ── Footer ──────────────────────────────────────────────── */
 function Footer() {
-  const cols = {
-    Product:   ['Overview', 'The four pillars', 'Pricing'],
-    Company:   ['Our story', 'Careers', 'Contact'],
-    Resources: ['Operator guides', 'Help center', 'Status'],
-  };
+  const footLinks = [
+    {
+      title: 'Product',
+      links: [
+        { label: 'Overview', url: 'index.html' },
+        { label: 'The Four Pillars', url: 'pillars.html' },
+        { label: 'Pricing Stack', url: 'pricing.html' }
+      ]
+    },
+    {
+      title: 'Company',
+      links: [
+        { label: 'Methodology', url: 'pillars.html' },
+        { label: 'Try the Demo', url: 'dashboard.html' },
+        { label: 'Inquire Now', url: 'pricing.html#waitlist' }
+      ]
+    },
+    {
+      title: 'Resources',
+      links: [
+        { label: 'Operator Blog', url: 'blog.html' },
+        { label: 'FAQ Support', url: 'pricing.html#faq' },
+        { label: 'Diagnostic Quiz', url: 'diagnostic.html' }
+      ]
+    }
+  ];
   return (
     <footer className="ff-footer">
       <div className="ff-container">
@@ -320,14 +363,13 @@ function Footer() {
               The operational health score for franchise operators. Know what's coming.
             </p>
           </div>
-          {Object.entries(cols).map(([h, links]) => (
-            <div key={h}>
-              <div className="ff-footer-col-title">{h}</div>
+          {footLinks.map(col => (
+            <div key={col.title}>
+              <div className="ff-footer-col-title">{col.title}</div>
               <div className="ff-footer-links">
-                {links.map(l => {
-                  const href = l === 'Pricing' ? 'pricing.html' : l === 'Overview' ? 'index.html' : '#';
-                  return <a key={l} href={href}>{l}</a>;
-                })}
+                {col.links.map(link => (
+                  <a key={link.label} href={link.url}>{link.label}</a>
+                ))}
               </div>
             </div>
           ))}

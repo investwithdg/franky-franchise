@@ -908,11 +908,32 @@ html { scroll-behavior: smooth; }
   margin: 0 0 var(--space-2);
 }
 
-.ff-pricing-panel-price {
+.ff-pricing-panel-tiers {
   display: flex;
-  align-items: baseline;
-  gap: 4px;
-  margin-bottom: var(--space-3);
+  flex-direction: column;
+  gap: 8px;
+  margin: var(--space-4) 0 var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-4) 0;
+}
+
+.ff-pricing-tier-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+}
+
+.ff-pricing-tier-label {
+  color: var(--text-muted);
+}
+
+.ff-pricing-tier-price {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-strong);
 }
 
 .ff-pricing-panel-desc {

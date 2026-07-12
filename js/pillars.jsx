@@ -25,7 +25,7 @@ function PillarsNav() {
         </a>
         <div className="ff-nav-links">
           <a href="index.html#product">Product</a>
-          <a href="pillars.html" style={{ color: 'var(--brand)' }}>The four pillars</a>
+          <a href="pillars.html" style={{ color: 'var(--brand)' }}>The Four Pillars</a>
           <a href="pricing.html">Pricing</a>
           <a href="blog.html">Blog</a>
         </div>
@@ -50,7 +50,7 @@ function PillarsNav() {
           borderBottom: '1px solid var(--border-subtle)',
         }}>
           <a href="index.html#product" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>Product</a>
-          <a href="pillars.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>The four pillars</a>
+          <a href="pillars.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>The Four Pillars</a>
           <a href="pricing.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>Pricing</a>
           <a href="blog.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Blog</a>
           {user
@@ -186,11 +186,32 @@ function Methodology() {
 
 /* ── Footer ──────────────────────────────────────────────── */
 function Footer() {
-  const cols = {
-    Product:   ['Overview', 'The four pillars', 'Pricing'],
-    Company:   ['Our story', 'Careers', 'Contact'],
-    Resources: ['Operator guides', 'Help center', 'Status'],
-  };
+  const footLinks = [
+    {
+      title: 'Product',
+      links: [
+        { label: 'Overview', url: 'index.html' },
+        { label: 'The Four Pillars', url: 'pillars.html' },
+        { label: 'Pricing Stack', url: 'pricing.html' }
+      ]
+    },
+    {
+      title: 'Company',
+      links: [
+        { label: 'Methodology', url: 'pillars.html' },
+        { label: 'Try the Demo', url: 'dashboard.html' },
+        { label: 'Inquire Now', url: 'pricing.html#waitlist' }
+      ]
+    },
+    {
+      title: 'Resources',
+      links: [
+        { label: 'Operator Blog', url: 'blog.html' },
+        { label: 'FAQ Support', url: 'pricing.html#faq' },
+        { label: 'Diagnostic Quiz', url: 'diagnostic.html' }
+      ]
+    }
+  ];
   return (
     <footer className="ff-footer">
       <div className="ff-container">
@@ -204,14 +225,13 @@ function Footer() {
               The operational health score for franchise operators. Know what's coming.
             </p>
           </div>
-          {Object.entries(cols).map(([h, links]) => (
-            <div key={h}>
-              <div className="ff-footer-col-title">{h}</div>
+          {footLinks.map(col => (
+            <div key={col.title}>
+              <div className="ff-footer-col-title">{col.title}</div>
               <div className="ff-footer-links">
-                {links.map(l => {
-                  const href = l === 'Pricing' ? 'pricing.html' : l === 'Overview' ? 'index.html' : l === 'The four pillars' ? 'pillars.html' : '#';
-                  return <a key={l} href={href}>{l}</a>;
-                })}
+                {col.links.map(link => (
+                  <a key={link.label} href={link.url}>{link.label}</a>
+                ))}
               </div>
             </div>
           ))}
