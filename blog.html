@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Operator Blog — Franky Franchise</title>
-  
   <meta name="description" content="Data-driven operational audits, cost-leak breakdowns, and systems guides for QSR, automotive, and multi-unit franchise operators.">
+
+  <!-- Open Graph -->
   <meta property="og:title" content="Operator Blog — Franky Franchise">
   <meta property="og:description" content="Data-driven operational audits, cost-leak breakdowns, and systems guides.">
   <meta property="og:type" content="website">
@@ -14,13 +15,17 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/franky-mascot.png">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Global styles -->
+  <!-- Design system styles -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="site.css">
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Design system component bundle -->
   <script src="ds-bundle.js"></script>
@@ -36,14 +41,6 @@
 <body>
   <div id="root"></div>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- React & Babel -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Mount Component -->
   <script type="text/babel" src="js/blog.jsx"></script>
   <script type="text/babel">
     function mount() {

@@ -84,7 +84,7 @@ function Sidebar({ tab, setTab, user, profile, onSignOut }) {
           }}
         >
           <Icon name="log-out" size={16} />
-          Sign out
+          {user?.email === 'demo@example.com' ? 'Exit demo' : 'Sign out'}
         </button>
       </div>
     </aside>
@@ -644,17 +644,32 @@ function DashboardPage() {
 
   useLucide([tab, data, user, profile]);
 
+  const isDemo = new URLSearchParams(window.location.search).get('demo') === '1';
+
   // Auth gate
   useEffect(() => {
+    if (isDemo) {
+      setUser({ name: 'Demo User', email: 'demo@example.com' });
+      setProfile({ name: 'Demo User', unitName: 'Slice House', unitCount: 12, segmentKey: 'qsr' });
+      setData({
+        overallScore: 724,
+        band: 'steady',
+        pillars: { people: 742, revenue: 810, resources: 388, systems: 760 },
+        date: new Date().toISOString()
+      });
+      setLoading(false);
+      return;
+    }
+
     FrankyAuth.onChanged(u => {
       setUser(u);
       if (u === null) window.location.href = 'auth.html';
     });
-  }, []);
+  }, [isDemo]);
 
   // Load latest diagnostic and profile
   useEffect(() => {
-    if (!user) return;
+    if (!user || isDemo) return;
     Promise.all([
       FrankyData.getLatestDiagnostic(),
       FrankyData.getProfile()
@@ -663,9 +678,13 @@ function DashboardPage() {
       setProfile(prof || { name: user.name, unitName: 'My Franchise', unitCount: 1, segmentKey: 'qsr' });
       setLoading(false);
     }).catch(() => setLoading(false));
-  }, [user]);
+  }, [user, isDemo]);
 
   async function handleSignOut() {
+    if (isDemo) {
+      window.location.href = 'index.html';
+      return;
+    }
     await FrankyAuth.signOut();
     window.location.href = 'index.html';
   }

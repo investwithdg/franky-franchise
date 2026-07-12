@@ -32,7 +32,7 @@ function PillarsNav() {
         <div className="ff-nav-actions">
           {user
             ? <a href="dashboard.html" className="ff-nav-login">Dashboard</a>
-            : <a href="auth.html" className="ff-nav-login">Log in</a>
+            : <a href="dashboard.html?demo=1" className="ff-nav-login">Demo</a>
           }
           <Button variant="primary" onClick={() => window.location.href = user ? 'diagnostic.html' : 'auth.html'}>
             Get my score
@@ -55,7 +55,7 @@ function PillarsNav() {
           <a href="blog.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Blog</a>
           {user
             ? <a href="dashboard.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Dashboard</a>
-            : <a href="auth.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Log in</a>
+            : <a href="dashboard.html?demo=1" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Demo</a>
           }
         </div>
       )}

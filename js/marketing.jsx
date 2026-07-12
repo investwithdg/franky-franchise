@@ -40,7 +40,7 @@ function Nav() {
         <div className="ff-nav-actions">
           {user
             ? <a href="dashboard.html" className="ff-nav-login">Dashboard</a>
-            : <a href="auth.html" className="ff-nav-login">Log in</a>
+            : <a href="dashboard.html?demo=1" className="ff-nav-login">Demo</a>
           }
           <Button variant="primary" onClick={handleCta}>Get my score</Button>
         </div>
@@ -65,7 +65,7 @@ function Nav() {
           <a href="blog.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Blog</a>
           {user
             ? <a href="dashboard.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Dashboard</a>
-            : <a href="auth.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Log in</a>
+            : <a href="dashboard.html?demo=1" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Demo</a>
           }
         </div>
       )}
@@ -92,20 +92,20 @@ function Hero() {
             <span style={{ display: 'block', color: 'var(--brand)' }}>Before it costs more.</span>
           </h1>
           <p className="ff-hero-subtitle" style={{ maxWidth: 540 }}>
-            Franky runs an 8-minute diagnostic, scores your Hiring, Sales, Vendors, and Operations, and assigns a dollar figure to your leaks using standard segment benchmarks—like Cornell's <b>$5,864 per hourly crew replacement cost</b> or automotive's <b>$15K–$25K technician turnover loss</b>.
+            Most franchise operators feel the leaks but can't pin them down. Franky runs an 8-minute diagnostic across four operating pillars and gives you one number you can act on this week.
           </p>
           <div className="ff-hero-ctas">
             <Button variant="primary" size="lg" leadingIcon={<Icon name="activity" size={20} />} onClick={handleCta}>
               Run the 8-minute diagnostic
             </Button>
-            <Button variant="ghost" size="lg" leadingIcon={<Icon name="layout" size={20} />} onClick={() => window.location.href = 'dashboard.html'}>
-              Try the Interactive Demo
+            <Button variant="ghost" size="lg" leadingIcon={<Icon name="layout" size={20} />} onClick={() => window.location.href = 'dashboard.html?demo=1'}>
+              See a sample report
             </Button>
           </div>
           <div className="ff-hero-stats">
             <Stat label="Diagnostic Time" value="8" unit="minutes" intent="neutral" />
             <Stat label="Operational Pillars" value="4" intent="neutral" />
-            <Stat label="Quantified Report" value="Instant" intent="neutral" />
+            <Stat label="Report Delivery" value="Same day" intent="neutral" />
           </div>
         </div>
         <div className="ff-reveal ff-reveal-d1" style={{ position: 'relative' }}>
