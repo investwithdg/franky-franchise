@@ -1,16 +1,15 @@
-/* Franky Franchise — Pricing + Waitlist page. */
+/* Franky Franchise — Pricing + Waitlist page (The 5-Rung Product Ladder). */
 const { Button, Badge, Card } = window.FrankyFranchiseDesignSystem_83cfe5;
 const { useState, useEffect } = React;
 
 const LOGO   = 'assets/franky-logo.png';
 const MASCOT = 'assets/franky-mascot.png';
-const BADGE  = 'assets/franky-badge.png';
 
 function Icon({ name, size = 20, color }) {
   return <i data-lucide={name} style={{ width: size, height: size, color }} />;
 }
 
-/* ── Nav (shared with marketing — lightweight copy) ──────── */
+/* ── Nav (shared with marketing) ────────────────────────── */
 function PricingNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -61,63 +60,93 @@ function PricingNav() {
   );
 }
 
-/* ── Pricing tiers ───────────────────────────────────────── */
-const TIERS = [
+/* ── Five Rungs Ladder Data ──────────────────────────────── */
+const RUNGS = [
   {
-    name: 'Starter',
+    rung: 1,
+    name: 'Rung 1: The Sniff Test',
     price: 'Free',
     period: '',
-    description: 'One unit, one score. See where you stand.',
+    description: 'On-demand operational diagnostic. Get scored across 4 pillars and identify annual leaks based on segment benchmarks.',
     cta: 'Start free diagnostic',
     ctaVariant: 'secondary',
     features: [
-      '1 franchise unit',
-      'Monthly diagnostic',
-      'Franky Health Score',
-      'Basic action plan',
-      'Four-pillar breakdown',
+      '8-minute operational diagnostic',
+      'Scores across 4 core pillars',
+      'Quantified annual leak calculation',
+      'Industry segment benchmarks comparison',
     ],
   },
   {
-    name: 'Growth',
-    price: '$49',
-    period: '/mo',
-    description: 'For multi-unit operators who want the full picture.',
-    cta: 'Join the waitlist',
-    ctaVariant: 'primary',
-    featured: true,
-    badge: 'Most popular',
-    features: [
-      'Up to 10 units',
-      'Weekly diagnostics',
-      'Portfolio-level benchmarks',
-      'Priority action plans',
-      'Score history & trends',
-      'Email alerts on score changes',
-    ],
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    description: 'For franchise groups and area developers.',
-    cta: 'Talk to us',
+    rung: 2,
+    name: 'Rung 2: Franky Fieldbook',
+    price: '$197–$497',
+    period: '/ pillar',
+    description: 'DIY segment-specific implementation kits to fix leaks. Bundle all 4 pillars for $997.',
+    cta: 'Buy Fieldbook',
     ctaVariant: 'secondary',
     features: [
-      'Unlimited units',
-      'Daily diagnostics',
-      'API access',
-      'Custom scoring weights',
-      'Dedicated success manager',
-      'SSO & team permissions',
-      'White-label reporting',
+      'Segment-specific DIY playbooks',
+      'Hiring pipelines & onboarding SOPs',
+      'Vendor contract audit templates',
+      '30-day staff retention checklist',
+      'Async Loom video walkthroughs',
+    ],
+  },
+  {
+    rung: 3,
+    name: 'Rung 3: The Fix Sprint',
+    price: '$4,500–$28,000',
+    period: '',
+    description: 'DpWY (Done-with-you) 4-week co-execution sprint. Franky provides playbooks and sessions; your team does the install.',
+    cta: 'Apply for Sprint',
+    ctaVariant: 'primary',
+    featured: true,
+    badge: 'Core Offer (DpWY)',
+    features: [
+      'Week 1: Sniff Deep Dive (90-min live)',
+      'Week 2: Custom framework asset design',
+      'Week 3: Live install review & adjustments',
+      'Week 4: Documentation & final handoff',
+      'Builds long-term internal capability',
+    ],
+  },
+  {
+    rung: 4,
+    name: 'Rung 4: Watchdog Retainer',
+    price: '$800–$6,000',
+    period: '/ mo',
+    description: 'DWY (Done-with-you) recurring protection. Ongoing reviews and channel access to protect your baseline.',
+    cta: 'Join Retainer Waitlist',
+    ctaVariant: 'secondary',
+    features: [
+      '1 Sniff Check diagnostic per quarter',
+      '1 monthly working session (30-45 min)',
+      'Async Slack / Telnyx SMS support',
+      '40% discount on future Fix Sprints',
+    ],
+  },
+  {
+    rung: 5,
+    name: 'Rung 5: Franky Formation',
+    price: '$25,000–$65,000',
+    period: '',
+    description: 'DFY + DpWY hybrid. Build custom operational systems and whitelist diagnostics for scaling franchisors.',
+    cta: 'Enquire for Formation',
+    ctaVariant: 'secondary',
+    features: [
+      'Custom hiring & onboarding systems',
+      'Vendor contracts & supplier frameworks',
+      'Sales and lead Telnyx SMS automation',
+      'SOP playbooks & compliance library',
+      'White-labeled Sniff Test for franchisees',
     ],
   },
 ];
 
 function PricingCard({ tier, onWaitlist }) {
   return (
-    <div className={`ff-pricing-card ${tier.featured ? 'featured' : ''}`}>
+    <div className={`ff-pricing-card ${tier.featured ? 'featured' : ''}`} style={tier.featured ? { gridColumn: 'span 2' } : {}}>
       {tier.badge && (
         <div className="ff-pricing-badge">
           <Badge variant="gold" solid>{tier.badge}</Badge>
@@ -134,18 +163,18 @@ function PricingCard({ tier, onWaitlist }) {
         size="lg"
         style={{ width: '100%', justifyContent: 'center' }}
         onClick={() => {
-          if (tier.name === 'Starter') {
+          if (tier.rung === 1) {
             window.location.href = 'auth.html';
           } else {
             onWaitlist();
           }
         }}
       >{tier.cta}</Button>
-      <ul className="ff-pricing-features">
+      <ul className="ff-pricing-features" style={tier.featured ? { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 } : {}}>
         {tier.features.map(f => (
-          <li key={f}>
+          <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Icon name="check" size={16} color="var(--success)" />
-            <span>{f}</span>
+            <span style={{ fontSize: 13.5 }}>{f}</span>
           </li>
         ))}
       </ul>
@@ -153,7 +182,7 @@ function PricingCard({ tier, onWaitlist }) {
   );
 }
 
-/* ── Waitlist section ────────────────────────────────────── */
+/* ── Waitlist Section ────────────────────────────────────── */
 function Waitlist() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle | saving | done | error
@@ -178,12 +207,12 @@ function Waitlist() {
       <div className="ff-container">
         <div className="ff-waitlist-inner ff-reveal">
           <img src={MASCOT} width={80} height={80} style={{ borderRadius: '50%', border: '3px solid var(--ff-gold)' }} alt="Franky" />
-          <h2>Get early access</h2>
-          <p>Growth and Enterprise plans are coming soon. Drop your email and we'll let you know the moment they're live.</p>
+          <h2>Enquire / Join the Waitlist</h2>
+          <p>Tell us which rung of the Franky Ladder (Fieldbook, Fix Sprint, Watchdog, or Formation) you are interested in, and we'll reach out to discuss your operations.</p>
           {status === 'done' ? (
             <div className="ff-waitlist-success">
               <Icon name="check-circle" size={24} color="var(--success)" />
-              <span>You're on the list! We'll be in touch.</span>
+              <span>We've received your request! We will contact you within 24 hours.</span>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="ff-waitlist-form">
@@ -197,7 +226,7 @@ function Waitlist() {
                 style={{ flex: 1 }}
               />
               <Button variant="gold" size="lg" type="submit" disabled={status === 'saving'}>
-                {status === 'saving' ? 'Saving…' : 'Join waitlist'}
+                {status === 'saving' ? 'Submitting…' : 'Submit Enquiry'}
               </Button>
             </form>
           )}
@@ -212,11 +241,10 @@ function Waitlist() {
 
 /* ── FAQ ─────────────────────────────────────────────────── */
 const FAQS = [
-  ['What's a Franky Health Score?', 'A single number (0–1000) that measures the operational health of your franchise across four pillars: Hiring, Sales, Vendors, and Operations. Think of it like a credit score for franchise operators.'],
-  ['How long does the diagnostic take?', 'About 8 minutes. It\'s 20 questions — 5 per pillar. You can take it from your phone, tablet, or desktop.'],
-  ['Do I need to connect my POS or accounting software?', 'Nope. The diagnostic is self-reported. You answer based on what you know about your business. No integrations required.'],
-  ['Can I run it for multiple locations?', 'The Starter plan covers 1 unit. Growth supports up to 10 units, and Enterprise is unlimited. Each unit gets its own score and action plan.'],
-  ['How often should I run a diagnostic?', 'Monthly is great for the Starter plan. Growth operators often run weekly to spot trends early. The more data points, the clearer the picture.'],
+  ['What is a "Done-with-You" (DpWY) Sprint?', 'Instead of a consultant doing everything in a vacuum or giving you videos to watch alone, the Fix Sprint is a co-execution model. Franky provides the SOP templates, pipeline architectures, and reviews, while you and your local store managers execute. This builds internal team capability so you aren\'t dependent on external consultants.'],
+  ['What is the "Watchdog Retainer"?', 'Once leaks are fixed in a Sprint, the Watchdog Retainer acts as insurance. We run a diagnostic quarterly, hold monthly live check-ins, and provide async Slack/Telnyx support to prevent operational creep.'],
+  ['How is the "Annual Leak" calculated?', 'The Sniff Test diagnostic calculates annual financial leaks based on your metrics and standard segment benchmarks (e.g. hourly crew replacement costs in QSR or dealership technician turnover costs). It translates operational friction directly into dollar metrics.'],
+  ['What is Franky Formation?', 'For operators expanding into franchisors, Formation builds your entire standard operating system (hiring, scheduling, SOP playbooks, vendor frameworks) before you scale, including white-labeled Sniff diagnostics for your future franchisees.'],
 ];
 
 function FAQ() {
@@ -226,7 +254,7 @@ function FAQ() {
       <div className="ff-container">
         <div className="ff-features-header ff-reveal">
           <div className="ff-eyebrow">FAQ</div>
-          <h2>Common questions</h2>
+          <h2>Product & Model FAQ</h2>
         </div>
         <div className="ff-faq-list">
           {FAQS.map(([q, a], i) => (
@@ -244,12 +272,12 @@ function FAQ() {
   );
 }
 
-/* ── Footer (shared) ─────────────────────────────────────── */
+/* ── Footer ──────────────────────────────────────────────── */
 function Footer() {
   const cols = {
-    Product:   ['Overview', 'The four pillars', 'Benchmarks', 'Pricing'],
-    Company:   ['Our story', 'Careers', 'Press', 'Contact'],
-    Resources: ['Operator guides', 'Help center', 'API', 'Status'],
+    Product:   ['Overview', 'The four pillars', 'Pricing'],
+    Company:   ['Our story', 'Careers', 'Contact'],
+    Resources: ['Operator guides', 'Help center', 'Status'],
   };
   return (
     <footer className="ff-footer">
@@ -287,7 +315,6 @@ function Footer() {
 
 /* ── Page root ───────────────────────────────────────────── */
 function PricingPage() {
-  const waitlistRef = React.useRef(null);
   useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
 
   function scrollToWaitlist() {
@@ -301,22 +328,35 @@ function PricingPage() {
       {/* Hero */}
       <section className="ff-pricing-hero">
         <div className="ff-container ff-reveal" style={{ textAlign: 'center' }}>
-          <div className="ff-eyebrow">Pricing</div>
-          <h1>Start free. Upgrade when you're ready.</h1>
+          <div className="ff-eyebrow">The Product Ladder</div>
+          <h1>Clear product tiers for every stage of growth.</h1>
           <p className="ff-pricing-hero-sub">
-            Every operator gets a free diagnostic. Need more units, more frequency, or team access? We've got you.
+            From a free diagnostic to a custom franchisor formation blueprint, Franky builds capability, not dependency.
           </p>
         </div>
       </section>
 
-      {/* Cards */}
-      <section className="ff-container" style={{ marginTop: -20 }}>
-        <div className="ff-pricing-grid">
-          {TIERS.map((tier, i) => (
-            <div key={tier.name} className={`ff-reveal ff-reveal-d${i + 1}`}>
-              <PricingCard tier={tier} onWaitlist={scrollToWaitlist} />
-            </div>
-          ))}
+      {/* Rungs Grid */}
+      <section className="ff-container" style={{ marginTop: -20, paddingBottom: 64 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 24,
+          maxWidth: 960,
+          margin: '0 auto',
+        }}>
+          {/* Rung 1 & 2 */}
+          <PricingCard tier={RUNGS[0]} onWaitlist={scrollToWaitlist} />
+          <PricingCard tier={RUNGS[1]} onWaitlist={scrollToWaitlist} />
+          
+          {/* Rung 3 (Featured full-width) */}
+          <div style={{ gridColumn: 'span 2' }}>
+            <PricingCard tier={RUNGS[2]} onWaitlist={scrollToWaitlist} />
+          </div>
+          
+          {/* Rung 4 & 5 */}
+          <PricingCard tier={RUNGS[3]} onWaitlist={scrollToWaitlist} />
+          <PricingCard tier={RUNGS[4]} onWaitlist={scrollToWaitlist} />
         </div>
       </section>
 

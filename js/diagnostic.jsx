@@ -1,6 +1,6 @@
 /* Franky Franchise — 8-minute Diagnostic Flow.
    Full-screen questionnaire → score reveal.
-   Uses FRANKY_QUESTIONS and FrankyScoring from diagnostic-questions.js. */
+   Uses FRANKY_QUESTIONS, FRANKY_SEGMENTS and FrankyScoring from diagnostic-questions.js. */
 const { Button, Badge, Card, ScoreRing, PillarBar } = window.FrankyFranchiseDesignSystem_83cfe5;
 const { useState, useEffect, useRef, useCallback } = React;
 
@@ -9,6 +9,7 @@ const LOGO   = 'assets/franky-logo.png';
 const PILLARS = window.FRANKY_PILLARS;
 const Q = window.FRANKY_QUESTIONS;
 const Scoring = window.FrankyScoring;
+const SEGMENTS = window.FRANKY_SEGMENTS;
 
 function Icon({ name, size = 20, color }) {
   return <i data-lucide={name} style={{ width: size, height: size, color }} />;
@@ -37,7 +38,7 @@ function StartScreen({ onStart }) {
         Ready to run your diagnostic?
       </h1>
       <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--text-body)', maxWidth: 440, textAlign: 'center', lineHeight: 1.55, margin: '0 0 32px' }}>
-        20 questions across four pillars. About 8 minutes. At the end you'll get your Franky Health Score and a clear action plan.
+        20 questions across four pillars. About 8 minutes. At the end you'll get your Franky Health Score and a quantified report of your annual leaks.
       </p>
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
         {PILLARS.map(key => {
@@ -60,6 +61,41 @@ function StartScreen({ onStart }) {
       >
         Let's go
       </Button>
+    </div>
+  );
+}
+
+/* ── Segment selection screen ────────────────────────────── */
+function SegmentSelect({ onSelect }) {
+  useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+  return (
+    <div className="ff-diag-center ff-reveal">
+      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 30, color: 'var(--text-strong)', margin: '0 0 12px', textAlign: 'center' }}>
+        Select your industry segment
+      </h2>
+      <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--text-muted)', maxWidth: 440, textAlign: 'center', lineHeight: 1.55, margin: '0 0 32px' }}>
+        We compare your operational metrics to benchmarks verified for your specific industry sector.
+      </p>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 420 }}>
+        {Object.entries(SEGMENTS).map(([key, s]) => (
+          <button
+            key={key}
+            onClick={() => onSelect(key)}
+            className="ff-diag-option"
+            style={{
+              padding: '16px 20px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+            type="button"
+          >
+            <span style={{ fontWeight: 600, fontSize: 15.5 }}>{s.label}</span>
+            <Icon name="arrow-right" size={18} color="var(--brand)" />
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -141,17 +177,17 @@ function Calculating() {
     <div className="ff-diag-center ff-diag-fade-in">
       <div className="ff-diag-spinner" />
       <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, color: 'var(--text-strong)', margin: '24px 0 8px' }}>
-        Crunching your numbers…
+        Calculating your report…
       </h2>
       <p style={{ fontFamily: 'var(--font-body)', fontSize: 15, color: 'var(--text-muted)' }}>
-        Scoring four pillars and building your action plan.
+        Scoring four pillars and quantifying your annual operational leaks.
       </p>
     </div>
   );
 }
 
 /* ── Score reveal ────────────────────────────────────────── */
-function ScoreReveal({ scores, pillarScores, overallScore, band }) {
+function ScoreReveal({ pillarScores, overallScore, band, segmentKey }) {
   const [displayScore, setDisplayScore] = useState(0);
   const [revealed, setRevealed] = useState(false);
 
@@ -162,7 +198,6 @@ function ScoreReveal({ scores, pillarScores, overallScore, band }) {
     let raf;
     function step(now) {
       const t = Math.min((now - start) / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - t, 3);
       setDisplayScore(Math.round(eased * overallScore));
       if (t < 1) { raf = requestAnimationFrame(step); }
@@ -175,36 +210,64 @@ function ScoreReveal({ scores, pillarScores, overallScore, band }) {
   useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
 
   const bandLabel = Scoring.bandLabel(band);
+  
+  // Calculate leak values
+  const { totalLeak } = Scoring.calculateLeaks(segmentKey, pillarScores);
 
   return (
     <div className="ff-diag-reveal ff-diag-fade-in">
-      <div className="ff-diag-reveal-card">
-        <div className="ff-eyebrow" style={{ textAlign: 'center', marginBottom: 8 }}>Your Franky Health Score</div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '12px 0 20px' }}>
-          <ScoreRing value={displayScore} size={220} showLabel={true} />
+      <div className="ff-diag-reveal-card" style={{ maxWidth: 580 }}>
+        <div className="ff-eyebrow" style={{ textAlign: 'center', marginBottom: 4 }}>Diagnostic Complete</div>
+        
+        {/* Estimated Annual Leak Headline */}
+        <div className="ff-reveal" style={{ textAlign: 'center', marginBottom: 24, marginTop: 10 }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 26, margin: '0 0 6px', color: 'var(--text-strong)' }}>
+            Your operations are leaking
+          </h2>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 44, fontWeight: 800, color: 'var(--ff-red)', lineHeight: 1.1 }}>
+            ${totalLeak.toLocaleString()}<span style={{ fontSize: 18, fontWeight: 500, color: 'var(--text-muted)' }}>/year</span>
+          </div>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: 13.5, color: 'var(--text-muted)', marginTop: 8, margin: 0 }}>
+            Estimated annual bleed across hiring, sales, vendors, and ops based on segment metrics.
+          </p>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
-          <Badge variant={band} solid style={{ fontSize: 15, padding: '6px 18px' }}>{bandLabel}</Badge>
+        <div style={{ display: 'flex', gap: 20, alignItems: 'center', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)', padding: '20px 0', marginBottom: 20 }}>
+          <div style={{ flex: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 4 }}>Franky Score</div>
+            <ScoreRing value={displayScore} size={130} showLabel={true} />
+            <Badge variant={band} solid style={{ marginTop: 8, fontSize: 11 }}>{bandLabel}</Badge>
+          </div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 15 }}>Pillar Losses:</h4>
+            {PILLARS.map(key => {
+              const p = Q[key];
+              const score = pillarScores[key];
+              const maxL = {
+                qsr: { hiring: 90000, sales: 40000, vendors: 45000, operations: 35000 },
+                auto: { hiring: 240000, sales: 90000, vendors: 60000, operations: 80000 },
+                fitness: { hiring: 80000, sales: 60000, vendors: 25000, operations: 35000 },
+                healthcare: { hiring: 110000, sales: 150000, vendors: 45000, operations: 75000 },
+                general: { hiring: 50000, sales: 30000, vendors: 20000, operations: 25000 }
+              }[segmentKey]?.[key] || 50000;
+              const leak = Math.round((1 - (score / 1000)) * maxL);
+
+              return (
+                <div key={key} style={{ display: 'flex', justifyItems: 'center', justifyContent: 'space-between', fontFamily: 'var(--font-body)', fontSize: 13.5 }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Icon name={p.icon} size={14} color={p.color} />
+                    {p.label}
+                  </span>
+                  <span>
+                    <b>${leak.toLocaleString()}</b> <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>({score} pts)</span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        <div className={`ff-diag-pillars-summary ${revealed ? 'visible' : ''}`}>
-          {PILLARS.map(key => {
-            const p = Q[key];
-            const score = pillarScores[key];
-            return (
-              <PillarBar
-                key={key}
-                label={p.label}
-                value={revealed ? score : 0}
-                icon={<Icon name={p.icon} size={18} />}
-              />
-            );
-          })}
-        </div>
-
-        <div className={`ff-diag-reveal-ctas ${revealed ? 'visible' : ''}`}>
+        <div className={`ff-diag-reveal-ctas visible`} style={{ marginTop: 10 }}>
           <Button variant="primary" size="lg" onClick={() => window.location.href = 'dashboard.html'}
             style={{ flex: 1, justifyContent: 'center' }}
             leadingIcon={<Icon name="layout-dashboard" size={18} />}
@@ -224,7 +287,8 @@ function ScoreReveal({ scores, pillarScores, overallScore, band }) {
 
 /* ── Main diagnostic controller ──────────────────────────── */
 function DiagnosticPage() {
-  const [screen, setScreen] = useState('start'); // start | pillar-intro | question | calculating | results
+  const [screen, setScreen] = useState('start'); // start | segment-select | pillar-intro | question | calculating | results
+  const [segmentKey, setSegmentKey] = useState('qsr');
   const [pillarIdx, setPillarIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -250,7 +314,14 @@ function DiagnosticPage() {
   const currentQNumber = pillarIdx * 5 + qIdx + 1;
 
   function handleStart() {
+    setScreen('segment-select');
+  }
+
+  function handleSegmentSelect(key) {
+    setSegmentKey(key);
     setScreen('pillar-intro');
+    setPillarIdx(0);
+    setQIdx(0);
   }
 
   function handlePillarStart() {
@@ -290,22 +361,29 @@ function DiagnosticPage() {
       });
       const overall = Scoring.overallScore(pillarScores);
       const band = Scoring.band(overall);
+      const leakCalculations = Scoring.calculateLeaks(segmentKey, pillarScores);
 
       // Save to Firestore / localStorage
       try {
         await FrankyData.saveDiagnostic({
+          segmentKey,
           overallScore: overall,
           pillars: pillarScores,
           band,
           answers: newAnswers,
+          leaks: leakCalculations.leaks,
+          totalLeak: leakCalculations.totalLeak,
+          baselineLeak: leakCalculations.baselineLeak,
         });
+        // Save segmentKey to user profile
+        await FrankyData.saveProfile({ segmentKey });
       } catch (e) {
         console.warn('Failed to save diagnostic:', e);
       }
 
       // Brief pause for dramatic effect
       setTimeout(() => {
-        setResults({ pillarScores, overallScore: overall, band });
+        setResults({ pillarScores, overallScore: overall, band, segmentKey });
         setScreen('results');
       }, 2200);
     }
@@ -330,7 +408,7 @@ function DiagnosticPage() {
             <span>Franky</span>
           </a>
           {(screen === 'question' || screen === 'pillar-intro') && (
-            <ProgressBar current={currentQNumber - (screen === 'pillar-intro' ? 0 : 0)} total={totalQuestions} />
+            <ProgressBar current={currentQNumber} total={totalQuestions} />
           )}
           <button
             className="ff-diag-exit"
@@ -348,6 +426,9 @@ function DiagnosticPage() {
       {/* Content */}
       <div className="ff-diag-body">
         {screen === 'start' && <StartScreen onStart={handleStart} />}
+        {screen === 'segment-select' && (
+          <SegmentSelect onSelect={handleSegmentSelect} />
+        )}
         {screen === 'pillar-intro' && (
           <PillarIntro pillarKey={currentPillarKey} index={pillarIdx} onStart={handlePillarStart} />
         )}

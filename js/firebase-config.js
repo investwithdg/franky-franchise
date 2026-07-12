@@ -40,6 +40,38 @@ if (_isDemo || !_fbAuth) {
     '%c🌭 Franky is running in DEMO MODE. Add your Firebase config to js/firebase-config.js to go live.',
     'color:#DBA42F;font-weight:bold;font-size:13px'
   );
+
+  // Seed default client demo data if localStorage is empty
+  (function _seedDefaultDemoData() {
+    if (!localStorage.getItem('franky_demo_user')) {
+      localStorage.setItem('franky_demo_user', JSON.stringify({
+        uid: 'demo_dana',
+        email: 'dana@slicehouse.com',
+        name: 'Dana Ruiz'
+      }));
+    }
+    if (!localStorage.getItem('franky_profile')) {
+      localStorage.setItem('franky_profile', JSON.stringify({
+        name: 'Dana Ruiz',
+        unitName: 'Slice House',
+        unitCount: 12
+      }));
+    }
+    if (!localStorage.getItem('franky_diagnostics')) {
+      localStorage.setItem('franky_diagnostics', JSON.stringify([{
+        overallScore: 724,
+        pillars: { hiring: 742, sales: 668, vendors: 388, operations: 812 },
+        band: 'steady',
+        answers: {
+          hiring: [4, 3, 4, 3, 4],
+          sales: [3, 4, 3, 3, 4],
+          vendors: [2, 1, 3, 2, 2],
+          operations: [4, 4, 4, 4, 4]
+        },
+        completedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+      }]));
+    }
+  })();
 }
 
 /* ── Helpers ────────────────────────────────────────────────── */

@@ -268,6 +268,40 @@ window.FRANKY_QUESTIONS = {
   },
 };
 
+/* ── Segment definitions (Verifiable benchmark baselines) ─── */
+window.FRANKY_SEGMENTS = {
+  qsr: {
+    label: 'Quick-Service Restaurant (QSR)',
+    baselineLeak: 52000,
+    hiringCostPerPerson: 2300,
+    averageTurnoverRate: 0.75,
+  },
+  auto: {
+    label: 'Automotive Dealership',
+    baselineLeak: 120000,
+    hiringCostPerPerson: 48000,
+    averageTurnoverRate: 0.35,
+  },
+  fitness: {
+    label: 'Boutique Fitness Studio',
+    baselineLeak: 45000,
+    hiringCostPerPerson: 4200,
+    averageTurnoverRate: 0.40,
+  },
+  healthcare: {
+    label: 'Healthcare Retail (Dental/Chiro)',
+    baselineLeak: 95000,
+    hiringCostPerPerson: 8500,
+    averageTurnoverRate: 0.25,
+  },
+  general: {
+    label: 'General / Personal Services',
+    baselineLeak: 35000,
+    hiringCostPerPerson: 3200,
+    averageTurnoverRate: 0.45,
+  }
+};
+
 /* ── Scoring helpers ───────────────────────────────────────── */
 window.FrankyScoring = {
   /**
@@ -296,6 +330,38 @@ window.FrankyScoring = {
   bandLabel(band) {
     return { strong: 'Thriving', steady: 'Steady', watch: 'Watch', critical: 'Critical' }[band] || band;
   },
+
+  /** Calculate annual leak in dollars based on segment and scores */
+  calculateLeaks(segmentKey, pillarScores) {
+    const segment = window.FRANKY_SEGMENTS[segmentKey] || window.FRANKY_SEGMENTS.general;
+    
+    // Defined max leaks per segment per category based on industry bleed analyses
+    const maxLeaks = {
+      qsr: { hiring: 90000, sales: 40000, vendors: 45000, operations: 35000 },
+      auto: { hiring: 240000, sales: 90000, vendors: 60000, operations: 80000 },
+      fitness: { hiring: 80000, sales: 60000, vendors: 25000, operations: 35000 },
+      healthcare: { hiring: 110000, sales: 150000, vendors: 45000, operations: 75000 },
+      general: { hiring: 50000, sales: 30000, vendors: 20000, operations: 25000 }
+    }[segmentKey] || { hiring: 50000, sales: 30000, vendors: 20000, operations: 25000 };
+
+    const leaks = {};
+    let totalLeak = 0;
+    
+    window.FRANKY_PILLARS.forEach(key => {
+      const score = pillarScores[key] || 0;
+      const maxL = maxLeaks[key] || 50000;
+      // The lower the score, the higher the leak (e.g. 1000 score = $0 leak, 0 score = max leak)
+      const leakVal = Math.round((1 - (score / 1000)) * maxL);
+      leaks[key] = leakVal;
+      totalLeak += leakVal;
+    });
+
+    return {
+      leaks,
+      totalLeak,
+      baselineLeak: segment.baselineLeak,
+    };
+  }
 };
 
 /* ── Action bank (post-diagnostic recommendations) ─────── */

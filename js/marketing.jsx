@@ -36,7 +36,6 @@ function Nav() {
             <a key={l} href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}>{l}</a>
           ))}
           <a href="pricing.html">Pricing</a>
-          <a href="#story">Story</a>
         </div>
         <div className="ff-nav-actions">
           {user
@@ -92,24 +91,24 @@ function Hero() {
         <div className="ff-reveal">
           <div className="ff-eyebrow">Operational health for franchises</div>
           <h1>
-            <span style={{ display: 'block' }}>Know what's coming.</span>
-            <span style={{ display: 'block', color: 'var(--brand)' }}>Before it costs you.</span>
+            <span style={{ display: 'block' }}>Know what you lose.</span>
+            <span style={{ display: 'block', color: 'var(--brand)' }}>Before it costs more.</span>
           </h1>
           <p className="ff-hero-subtitle">
-            Franky runs an 8-minute diagnostic, scores your Hiring, Sales, Vendors and Operations, and turns it into one number you can act on this week — like a credit score for your franchise.
+            Franky runs an 8-minute diagnostic, scores your Hiring, Sales, Vendors, and Operations, and assigns a dollar figure to your leaks using standard segment benchmarks.
           </p>
           <div className="ff-hero-ctas">
             <Button variant="primary" size="lg" leadingIcon={<Icon name="activity" size={20} />} onClick={handleCta}>
               Run the 8-minute diagnostic
             </Button>
-            <Button variant="ghost" size="lg" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>
-              See how the score works
+            <Button variant="ghost" size="lg" onClick={() => window.location.href = 'pricing.html'}>
+              See the 5-Rung Ladder
             </Button>
           </div>
           <div className="ff-hero-stats">
-            <Stat label="Operators" value="1,400+" intent="neutral" />
-            <Stat label="Avg. score lift" value="+86" unit="pts / qtr" intent="neutral" />
-            <Stat label="Diagnostic" value="8" unit="min" intent="neutral" />
+            <Stat label="Diagnostic Time" value="8" unit="minutes" intent="neutral" />
+            <Stat label="Operational Pillars" value="4" intent="neutral" />
+            <Stat label="Quantified Report" value="Instant" intent="neutral" />
           </div>
         </div>
         <div className="ff-reveal ff-reveal-d1" style={{ position: 'relative' }}>
@@ -138,10 +137,10 @@ function Hero() {
 
 /* ── Four pillars ────────────────────────────────────────── */
 const FEATURES = [
-  ['users',       'Hiring',     'Spot understaffing and turnover risk before a store starts slipping.'],
-  ['trending-up', 'Sales',      'See which units are leaving ticket size on the table — and the script that fixes it.'],
-  ['truck',       'Vendors',    'Catch cost creep early. Franky flags the renegotiation before it bites margin.'],
-  ['cog',         'Operations', 'A live read on the day-to-day so small cracks never become closures.'],
+  ['users',       'Hiring',     'Identify staffing coverage gaps and turnover costs before they impact operations.'],
+  ['trending-up', 'Sales',      'Quantify sales leakages from missed upselling and conversion opportunities.'],
+  ['truck',       'Vendors',    'Catch contract cost creep early vs. standard industry benchmarks.'],
+  ['cog',         'Operations', 'Expose day-to-day process inefficiencies and schedule scheduling waste.'],
 ];
 
 function Pillars() {
@@ -150,7 +149,7 @@ function Pillars() {
       <div className="ff-container">
         <div className="ff-features-header ff-reveal">
           <div className="ff-eyebrow">The four pillars</div>
-          <h2>One score. Four things that actually move it.</h2>
+          <h2>One score. Four leaks that actually drag it down.</h2>
         </div>
         <div className="ff-features-grid">
           {FEATURES.map(([ic, t, d], i) => (
@@ -182,9 +181,9 @@ function HowItWorks() {
       <div className="ff-how-inner">
         <div className="ff-reveal">
           <div className="ff-eyebrow" style={{ color: 'var(--ff-yellow)' }}>How the score works</div>
-          <h2>From a hunch to a number you can act on.</h2>
+          <h2>From a hunch to a quantified annual bleed report.</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.55, color: 'rgba(255,255,255,0.78)', margin: '0 0 24px', maxWidth: 440 }}>
-            Every score lands in one of four bands. The band tells you how worried to be; the action plan tells you what to do next.
+            Every score maps to one of four bands. The band tells you how worried to be; the action plan shows you exactly where the cash is leaking.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[['strong', 'Thriving', '800–1000', 'Ahead of the pack — protect it.'],
@@ -220,7 +219,7 @@ function CTA() {
         <img src={BADGE} width={132} height={132} style={{ flex: 'none', borderRadius: 'var(--radius-full)' }} alt="Franky" />
         <div style={{ flex: 1 }}>
           <h2>Get your Franky Health Score</h2>
-          <p>Eight minutes. No POS hookup. Just a clear read on what's coming.</p>
+          <p>Eight minutes. No POS hookup. Just a clear read on what your operations leak.</p>
         </div>
         <Button
           variant="gold" size="lg" style={{ flex: 'none' }}
@@ -236,9 +235,9 @@ function CTA() {
 /* ── Footer ──────────────────────────────────────────────── */
 function Footer() {
   const cols = {
-    Product:   ['Overview', 'The four pillars', 'Benchmarks', 'Pricing'],
-    Company:   ['Our story', 'Careers', 'Press', 'Contact'],
-    Resources: ['Operator guides', 'Help center', 'API', 'Status'],
+    Product:   ['Overview', 'The four pillars', 'Pricing'],
+    Company:   ['Our story', 'Careers', 'Contact'],
+    Resources: ['Operator guides', 'Help center', 'Status'],
   };
   return (
     <footer className="ff-footer" id="story">

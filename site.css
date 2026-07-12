@@ -852,6 +852,15 @@ html { scroll-behavior: smooth; }
   padding: 0 0 var(--space-16);
 }
 
+.ff-pricing-grid-ladder {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 0 var(--space-16);
+}
+
 .ff-pricing-card {
   background: var(--surface-card);
   border: 1.5px solid var(--border-subtle);
@@ -1069,12 +1078,15 @@ html { scroll-behavior: smooth; }
     font-size: 28px;
   }
 
-  .ff-pricing-grid {
+  .ff-pricing-grid,
+  .ff-pricing-grid-ladder {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    max-width: 420px;
+    gap: var(--space-5);
   }
 
   .ff-pricing-card.featured {
+    grid-column: span 1 !important;
     transform: none;
   }
 
