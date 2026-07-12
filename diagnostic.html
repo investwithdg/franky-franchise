@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Franky Franchise — Know what's coming</title>
-  <meta name="description" content="Franky runs an 8-minute diagnostic, scores your franchise across four operating pillars, and gives you one number you can act on this week — like a credit score for your franchise.">
+  <title>Diagnostic — Franky Franchise</title>
+  <meta name="description" content="Run the 8-minute Franky diagnostic. Answer 20 questions across four pillars and get your Franky Health Score.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Franky Franchise — Know what's coming">
-  <meta property="og:description" content="The operational health score for franchise operators. Eight-minute diagnostic, four-pillar score, clear action plan.">
+  <meta property="og:title" content="Run Your Diagnostic — Franky Franchise">
+  <meta property="og:description" content="8 minutes. 20 questions. One score you can act on.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://frankyfranchise.com/assets/franky-badge.png">
 
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="site.css">
 
-  <!-- React + Babel (matching design system CDN pattern) -->
+  <!-- React + Babel -->
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
@@ -36,16 +36,19 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
 
+  <!-- Question bank -->
+  <script src="js/diagnostic-questions.js"></script>
+
   <style>html,body{margin:0;background:var(--surface-page)}</style>
 </head>
 <body>
   <div id="root"></div>
 
-  <script type="text/babel" src="js/marketing.jsx"></script>
+  <script type="text/babel" src="js/diagnostic.jsx"></script>
   <script type="text/babel">
     function mount() {
-      if (!window.MarketingPage) return setTimeout(mount, 40);
-      ReactDOM.createRoot(document.getElementById('root')).render(<MarketingPage />);
+      if (!window.DiagnosticPage) return setTimeout(mount, 40);
+      ReactDOM.createRoot(document.getElementById('root')).render(<DiagnosticPage />);
       if (window.lucide) window.lucide.createIcons();
     }
     mount();

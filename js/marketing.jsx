@@ -14,6 +14,16 @@ function Icon({ name, size = 22, color }) {
 /* ── Nav ─────────────────────────────────────────────────── */
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    FrankyAuth.onChanged(u => setUser(u));
+  }, []);
+
+  function handleCta() {
+    window.location.href = user ? 'diagnostic.html' : 'auth.html';
+  }
+
   return (
     <nav className="ff-nav" role="navigation" aria-label="Main navigation">
       <div className="ff-nav-inner">
@@ -22,13 +32,18 @@ function Nav() {
           <span>Franky Franchise</span>
         </a>
         <div className="ff-nav-links">
-          {['Product', 'The four pillars', 'Pricing', 'Story'].map(l => (
+          {['Product', 'The four pillars'].map(l => (
             <a key={l} href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}>{l}</a>
           ))}
+          <a href="pricing.html">Pricing</a>
+          <a href="#story">Story</a>
         </div>
         <div className="ff-nav-actions">
-          <a href="dashboard.html" className="ff-nav-login">Dashboard</a>
-          <Button variant="primary">Get my score</Button>
+          {user
+            ? <a href="dashboard.html" className="ff-nav-login">Dashboard</a>
+            : <a href="auth.html" className="ff-nav-login">Log in</a>
+          }
+          <Button variant="primary" onClick={handleCta}>Get my score</Button>
         </div>
         <button
           className="ff-hamburger"
@@ -45,13 +60,17 @@ function Nav() {
           background: 'var(--surface-page)',
           borderBottom: '1px solid var(--border-subtle)',
         }}>
-          {['Product', 'The four pillars', 'Pricing', 'Story'].map(l => (
+          {['Product', 'The four pillars'].map(l => (
             <a key={l} href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}
               style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}
               onClick={() => setMenuOpen(false)}
             >{l}</a>
           ))}
-          <a href="dashboard.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Dashboard</a>
+          <a href="pricing.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Pricing</a>
+          {user
+            ? <a href="dashboard.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Dashboard</a>
+            : <a href="auth.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Log in</a>
+          }
         </div>
       )}
     </nav>
@@ -60,6 +79,13 @@ function Nav() {
 
 /* ── Hero ────────────────────────────────────────────────── */
 function Hero() {
+  const [user, setUser] = useState(null);
+  useEffect(() => { FrankyAuth.onChanged(u => setUser(u)); }, []);
+
+  function handleCta() {
+    window.location.href = user ? 'diagnostic.html' : 'auth.html';
+  }
+
   return (
     <section className="ff-hero" id="product">
       <div className="ff-hero-inner">
@@ -73,8 +99,12 @@ function Hero() {
             Franky runs an 8-minute diagnostic, scores your Hiring, Sales, Vendors and Operations, and turns it into one number you can act on this week — like a credit score for your franchise.
           </p>
           <div className="ff-hero-ctas">
-            <Button variant="primary" size="lg" leadingIcon={<Icon name="activity" size={20} />}>Run the 8-minute diagnostic</Button>
-            <Button variant="ghost" size="lg">See a sample score</Button>
+            <Button variant="primary" size="lg" leadingIcon={<Icon name="activity" size={20} />} onClick={handleCta}>
+              Run the 8-minute diagnostic
+            </Button>
+            <Button variant="ghost" size="lg" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>
+              See how the score works
+            </Button>
           </div>
           <div className="ff-hero-stats">
             <Stat label="Operators" value="1,400+" intent="neutral" />
@@ -181,6 +211,9 @@ function HowItWorks() {
 
 /* ── CTA banner ──────────────────────────────────────────── */
 function CTA() {
+  const [user, setUser] = useState(null);
+  useEffect(() => { FrankyAuth.onChanged(u => setUser(u)); }, []);
+
   return (
     <section className="ff-container" style={{ padding: '72px 32px' }}>
       <div className="ff-cta-banner ff-reveal">
@@ -189,7 +222,12 @@ function CTA() {
           <h2>Get your Franky Health Score</h2>
           <p>Eight minutes. No POS hookup. Just a clear read on what's coming.</p>
         </div>
-        <Button variant="gold" size="lg" style={{ flex: 'none' }}>Start free diagnostic</Button>
+        <Button
+          variant="gold" size="lg" style={{ flex: 'none' }}
+          onClick={() => window.location.href = user ? 'diagnostic.html' : 'auth.html'}
+        >
+          Start free diagnostic
+        </Button>
       </div>
     </section>
   );
@@ -219,7 +257,13 @@ function Footer() {
             <div key={h}>
               <div className="ff-footer-col-title">{h}</div>
               <div className="ff-footer-links">
-                {links.map(l => <a key={l} href="#">{l}</a>)}
+                {links.map(l => {
+                  const href = l === 'Pricing' ? 'pricing.html'
+                    : l === 'Overview' ? 'index.html'
+                    : l === 'The four pillars' ? '#the-four-pillars'
+                    : '#';
+                  return <a key={l} href={href}>{l}</a>;
+                })}
               </div>
             </div>
           ))}

@@ -10,7 +10,7 @@
   <meta property="og:title" content="Franky Franchise — Dashboard">
   <meta property="og:description" content="Your Franky Health Score, pillar breakdown, and action plan.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/franky-badge.png">
+  <meta property="og:image" content="https://frankyfranchise.com/assets/franky-badge.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/franky-mascot.png">
@@ -29,6 +29,15 @@
 
   <!-- Design system component bundle -->
   <script src="ds-bundle.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <!-- Question bank (for action recommendations) -->
+  <script src="js/diagnostic-questions.js"></script>
 
   <style>html,body{margin:0;background:var(--surface-page)}</style>
 </head>
