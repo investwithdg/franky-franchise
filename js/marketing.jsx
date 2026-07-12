@@ -32,10 +32,10 @@ function Nav() {
           <span>Franky Franchise</span>
         </a>
         <div className="ff-nav-links">
-          {['Product', 'The four pillars'].map(l => (
-            <a key={l} href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}>{l}</a>
-          ))}
+          <a href="index.html#product">Product</a>
+          <a href="pillars.html">The four pillars</a>
           <a href="pricing.html">Pricing</a>
+          <a href="blog.html">Blog</a>
         </div>
         <div className="ff-nav-actions">
           {user
@@ -59,13 +59,10 @@ function Nav() {
           background: 'var(--surface-page)',
           borderBottom: '1px solid var(--border-subtle)',
         }}>
-          {['Product', 'The four pillars'].map(l => (
-            <a key={l} href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}
-              style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}
-              onClick={() => setMenuOpen(false)}
-            >{l}</a>
-          ))}
+          <a href="index.html#product" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>Product</a>
+          <a href="pillars.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>The four pillars</a>
           <a href="pricing.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Pricing</a>
+          <a href="blog.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Blog</a>
           {user
             ? <a href="dashboard.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Dashboard</a>
             : <a href="auth.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Log in</a>
@@ -94,15 +91,15 @@ function Hero() {
             <span style={{ display: 'block' }}>Know what you lose.</span>
             <span style={{ display: 'block', color: 'var(--brand)' }}>Before it costs more.</span>
           </h1>
-          <p className="ff-hero-subtitle">
-            Franky runs an 8-minute diagnostic, scores your Hiring, Sales, Vendors, and Operations, and assigns a dollar figure to your leaks using standard segment benchmarks.
+          <p className="ff-hero-subtitle" style={{ maxWidth: 540 }}>
+            Franky runs an 8-minute diagnostic, scores your Hiring, Sales, Vendors, and Operations, and assigns a dollar figure to your leaks using standard segment benchmarks—like Cornell's <b>$5,864 per hourly crew replacement cost</b> or automotive's <b>$15K–$25K technician turnover loss</b>.
           </p>
           <div className="ff-hero-ctas">
             <Button variant="primary" size="lg" leadingIcon={<Icon name="activity" size={20} />} onClick={handleCta}>
               Run the 8-minute diagnostic
             </Button>
             <Button variant="ghost" size="lg" onClick={() => window.location.href = 'pricing.html'}>
-              See the 5-Rung Ladder
+              See our Product Tiers
             </Button>
           </div>
           <div className="ff-hero-stats">

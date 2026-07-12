@@ -1143,6 +1143,91 @@ html { scroll-behavior: smooth; }
   padding: 0 0 18px;
   animation: ff-fade-in 0.3s var(--ease-out);
 }
+.ff-pillars-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-8);
+}
+
+.ff-pillars-panel-col {
+  border-left: 1px solid var(--border-subtle);
+  padding-left: var(--space-8);
+}
+
+/* Blog Index */
+.ff-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Blog Article Reader */
+.ff-blog-post-content {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.ff-blog-post-content p {
+  margin: 0 0 20px;
+}
+
+.ff-blog-post-content h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  color: var(--text-strong);
+  margin: 36px 0 16px;
+}
+
+.ff-blog-post-content ul,
+.ff-blog-post-content ol {
+  margin: 0 0 24px;
+  padding-left: 24px;
+}
+
+.ff-blog-post-content li {
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+
+.ff-blog-quote {
+  border-left: 4px solid var(--ff-gold);
+  background: var(--surface-card);
+  padding: var(--space-5) var(--space-6);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-style: italic;
+  color: var(--text-strong);
+  margin: 36px 0;
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  line-height: 1.55;
+}
+
+.ff-blog-references {
+  margin-top: 16px;
+  padding-left: 20px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+}
+
+.ff-blog-references li {
+  margin-bottom: 8px;
+  line-height: 1.45;
+}
+
+.ff-blog-inline-cta {
+  background: var(--neutral-900);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-6);
+  margin-top: 54px;
+  text-align: center;
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
@@ -1163,6 +1248,10 @@ html { scroll-behavior: smooth; }
   .ff-footer-grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
+  }
+
+  .ff-blog-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .ff-cta-banner {
@@ -1316,6 +1405,23 @@ html { scroll-behavior: smooth; }
 
   .ff-waitlist-form {
     flex-direction: column;
+  }
+
+  .ff-pillars-layout-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .ff-pillars-panel-col {
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    padding-left: 0;
+    padding-top: var(--space-6);
+  }
+
+  .ff-blog-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
   }
 }
 

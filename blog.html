@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Blog — Franky Franchise</title>
+  
+  <meta name="description" content="Data-driven operational audits, cost-leak breakdowns, and systems guides for QSR, automotive, and multi-unit franchise operators.">
+  <meta property="og:title" content="Operator Blog — Franky Franchise">
+  <meta property="og:description" content="Data-driven operational audits, cost-leak breakdowns, and systems guides.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://frankyfranchise.com/assets/franky-badge.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/franky-mascot.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="site.css">
+
+  <!-- Design system component bundle -->
+  <script src="ds-bundle.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <style>html,body{margin:0;background:var(--surface-page)}</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- React & Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Mount Component -->
+  <script type="text/babel" src="js/blog.jsx"></script>
+  <script type="text/babel">
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+    root.render(<window.BlogPage />);
+  </script>
+</body>
+</html>

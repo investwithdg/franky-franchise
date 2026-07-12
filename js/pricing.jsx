@@ -25,8 +25,9 @@ function PricingNav() {
         </a>
         <div className="ff-nav-links">
           <a href="index.html#product">Product</a>
-          <a href="index.html#the-four-pillars">The four pillars</a>
+          <a href="pillars.html">The four pillars</a>
           <a href="pricing.html" style={{ color: 'var(--brand)' }}>Pricing</a>
+          <a href="blog.html">Blog</a>
         </div>
         <div className="ff-nav-actions">
           {user
@@ -49,8 +50,9 @@ function PricingNav() {
           borderBottom: '1px solid var(--border-subtle)',
         }}>
           <a href="index.html#product" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>Product</a>
-          <a href="index.html#the-four-pillars" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>The four pillars</a>
+          <a href="pillars.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>The four pillars</a>
           <a href="pricing.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Pricing</a>
+          <a href="blog.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 15, color: 'var(--text-body)', textDecoration: 'none', padding: '8px 0' }}>Blog</a>
           {user
             ? <a href="dashboard.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Dashboard</a>
             : <a href="auth.html" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 15, color: 'var(--brand)', textDecoration: 'none', padding: '8px 0' }}>Log in</a>
@@ -137,7 +139,7 @@ const SERVICES = [
     price: '$25,000–$65,000',
     period: '',
     description: 'Complete operating infrastructure build for scaling or restructuring franchisors.',
-    cta: 'Enquire for Formation',
+    cta: 'Inquire for Formation',
     ctaVariant: 'secondary',
     provided: [
       'Hiring & onboarding franchisee playbook',
@@ -155,14 +157,11 @@ function PricingPanel({ service, onWaitlist }) {
     <div className={`ff-pricing-panel ${service.featured ? 'featured' : ''}`}>
       {/* Col 1: Header & CTA */}
       <div className="ff-pricing-panel-header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-          <div className="ff-pricing-seal">
-            <img src={service.featured ? BADGE : MASCOT} alt="" />
-          </div>
-          {service.badge && (
+        {service.badge && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
             <Badge variant="gold" solid>{service.badge}</Badge>
-          )}
-        </div>
+          </div>
+        )}
         <h3 className="ff-pricing-panel-title">{service.name}</h3>
         <div className="ff-pricing-panel-price">
           <span className="ff-pricing-amount">{service.price}</span>
@@ -235,7 +234,7 @@ function Waitlist() {
       <div className="ff-container">
         <div className="ff-waitlist-inner ff-reveal">
           <img src={MASCOT} width={80} height={80} style={{ borderRadius: '50%', border: '3px solid var(--ff-gold)' }} alt="Franky" />
-          <h2>Enquire / Join the Waitlist</h2>
+          <h2>Inquire / Join the Waitlist</h2>
           <p>Tell us which offer (Fieldbook, Fix Sprint, Watchdog, or Formation) you are interested in, and we'll reach out to discuss your operations.</p>
           {status === 'done' ? (
             <div className="ff-waitlist-success">
@@ -254,7 +253,7 @@ function Waitlist() {
                 style={{ flex: 1 }}
               />
               <Button variant="gold" size="lg" type="submit" disabled={status === 'saving'}>
-                {status === 'saving' ? 'Submitting…' : 'Submit Enquiry'}
+                {status === 'saving' ? 'Submitting…' : 'Submit Inquiry'}
               </Button>
             </form>
           )}
@@ -269,10 +268,11 @@ function Waitlist() {
 
 /* ── FAQ ─────────────────────────────────────────────────── */
 const FAQS = [
-  ['How does the co-execution model work?', 'Instead of a consultant doing everything in a vacuum or giving you videos to watch alone, the Fix Sprint is a co-execution model. Franky provides the SOP templates, pipeline architectures, and reviews, while you and your local store managers execute. This builds internal team capability so you aren\'t dependent on external consultants.'],
-  ['What is the "Watchdog Retainer"?', 'Once leaks are fixed in a Sprint, the Watchdog Retainer acts as insurance. We run a diagnostic quarterly, hold monthly live check-ins, and provide async Slack/Telnyx support to prevent operational creep.'],
-  ['How is the "Annual Leak" calculated?', 'The Sniff Test diagnostic calculates annual financial leaks based on your metrics and standard segment benchmarks (e.g. hourly crew replacement costs in QSR or dealership technician turnover costs). It translates operational friction directly into dollar metrics.'],
-  ['What is Franky Formation?', 'For operators expanding into franchisors, Formation builds your entire standard operating system (hiring, scheduling, SOP playbooks, vendor frameworks) before you scale, including white-labeled Sniff diagnostics for your future franchisees.'],
+  ['I can\'t afford consulting.', 'Franky isn\'t standard consulting. The Fieldbook is under $1,000 for self-guided operators. The Fix Sprint is a 4-week co-execution setup priced between $4,500 and $28,000 depending on location volume, which typically pays for itself within 60 days by plugging the actual leaks we identify.'],
+  ['I already know I have a staffing problem.', 'Knowing you have a staffing problem and knowing exactly what it is costing your bottom line—and how to fix it—are two different things. The free diagnostic gives you the financial impact and the exact action plan.'],
+  ['My franchisor handles brand compliance and field support.', 'Your franchisor handles brand standards, marketing consistency, and compliance checks. Nobody handles your day-to-day profit and loss (P&L) or operational leaks but you.'],
+  ['My technicians and staff are all long-term.', 'That is a major strength—but it is also a single-point-of-failure risk. Do you have a documented standard operating procedure (SOP) for what happens if one leaves tomorrow? The diagnostic flags these manager-dependency risks in 8 minutes.'],
+  ['I don\'t have time for another vendor.', 'We protect your time. The Watchdog Retainer is built to be lightweight: one monthly review call and a simple one-page action plan per location. It prevents operational creep without cluttering your schedule.'],
 ];
 
 function FAQ() {
@@ -353,7 +353,6 @@ function PricingPage() {
     <div style={{ background: 'var(--surface-page)' }}>
       <PricingNav />
 
-      {/* Hero */}
       <section className="ff-pricing-hero">
         <div className="ff-container ff-reveal" style={{ textAlign: 'center' }}>
           <div className="ff-eyebrow">Product Offerings</div>
